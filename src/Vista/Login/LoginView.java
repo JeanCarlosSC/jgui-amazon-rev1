@@ -1,14 +1,11 @@
 
 package Vista.Login;
 import Servicios.ObjetosGraficosService;
-import Vista.Principal.PrincipalView;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.border.Border;
 
-public class LoginView extends JFrame{
+public abstract class LoginView extends JPanel{
     JPanel pDerecho, pIzquierdo, pArriba;
     Font fLogin,fInfoLogin,fInfo2Login, fTitulo, fBotonI;
     Color colorPrincipal;
@@ -18,13 +15,13 @@ public class LoginView extends JFrame{
     
     
     public LoginView() {
-        
         cargarRecursos();
         cargarPaneles();
         cargarLabels();
         cargarBotones();
         cargarFields();
-        cargarPropiedades();
+        setSize(1300, 720);
+        setLayout(null);
 
     }
     
@@ -37,8 +34,8 @@ public class LoginView extends JFrame{
         
         colorPrincipal = new Color(239,80,37);
         
-        iLogin = new ImageIcon("C:\\Users\\dzaba\\Documents\\NetBeansProjects\\InterfazShopee\\src\\Vista\\login.png");
-        iLoginA = new ImageIcon("C:\\Users\\dzaba\\Documents\\NetBeansProjects\\InterfazShopee\\src\\Vista\\loginArriba.png");     
+        iLogin = new ImageIcon("src/Vista/login.png");
+        iLoginA = new ImageIcon("src/Vista/loginArriba.png");     
         
         cMano = new Cursor(Cursor.HAND_CURSOR);
         cRaya = new Cursor(Cursor.TEXT_CURSOR);
@@ -138,13 +135,8 @@ public class LoginView extends JFrame{
         bEntrar.setText("INICIAR SESION");
         bEntrar.setBorder(bordeN);
         pDerecho.add(bEntrar);
-        bEntrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setContentPane(new PrincipalView());
-            
-            }
-        });
+        bEntrar.addActionListener(e -> ingresar());
+        
         //boton entrar con facebook
         JButton bEntrarF = new JButton();
         bEntrarF.setFont(fInfoLogin);
@@ -183,14 +175,6 @@ public class LoginView extends JFrame{
         pDerecho.add(tClaveUsuario);
         
     }
-    
-    private void cargarPropiedades(){
-        setSize(1300, 720); // tamaño
-        setState(JFrame.MAXIMIZED_BOTH);
-        setLayout(null); // layout null
-        setLocationRelativeTo(null); // centrar ventana
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // para terminar ejecución al cerrar
-        setVisible(true); // hacer ventana visible
-        setTitle("Shopee");
-    }
+
+    public abstract void ingresar();
 }
